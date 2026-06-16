@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rapid'Auto — Mécanicien Entrepreneur Toutes Marques</title>
+<meta name="description" content="Rapid'Auto — Mécanicien entrepreneur toutes marques. Entretien, réparations, diagnostic. Devis rapide par DM ou téléphone. Garantie constructeur préservée." />
+
+<!-- ===== GOOGLE FONTS ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+/* ===== TOKENS & RESET ===== */
+:root {
+  --carbon:   #0B0B0D; /* fond principal — noir carbone profond */
+  --racing:   #E10600; /* accent signature — rouge course vif */
+  --chrome:   #C8CDD2; /* texte principal — argent métallisé */
+  --graphite: #18181B; /* sections alternées — gris anthracite */
+  --steel:    #6B7280; /* texte secondaire — gris acier neutre */
+  --spark:    #FF3B30; /* hover states — rouge étincelle */
+
+  --promo-h:  36px;
+  --header-h: 68px;
+  --maxw:     1200px;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--promo-h) + var(--header-h) + 12px);
+}
+
+body {
+  background: var(--carbon);
+  color: var(--chrome);
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body.promo-hidden { --promo-h: 0px; }
+
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+/* ===== UTILITIES ===== */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section { padding: 88px 0; position: relative; }
+.section--carbon   { background: var(--carbon); }
+.section--graphite { background: var(--graphite); }
+
+.eyebrow {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 13px;
+  color: var(--racing);
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--chrome);
+  font-size: clamp(28px, 5vw, 46px);
+  line-height: 1.02;
+  letter-spacing: 0.005em;
+}
+
+.section-sub {
+  color: var(--steel);
+  max-width: 560px;
+  margin-top: 16px;
+  font-size: 16px;
+}
+
+.label {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--racing);
+  font-size: 12px;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 16px;
+  padding: 14px 32px;
+  border-radius: 2px;
+  border: 1.5px solid transparent;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease),
+              border-color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.btn-primary { background: var(--racing); color: var(--chrome); }
+.btn-primary:hover { background: var(--spark); transform: translateY(-2px); }
+.btn-ghost-chrome { background: transparent; border-color: var(--chrome); color: var(--chrome); }
+.btn-ghost-chrome:hover { background: var(--chrome); color: var(--carbon); }
+.btn-ghost-racing { background: transparent; border-color: var(--racing); color: var(--racing); }
+.btn-ghost-racing:hover { background: var(--racing); color: var(--chrome); }
+.btn-full { width: 100%; }
+
+/* ===== 0. BANDEAU PROMO ===== */
+.promo {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--promo-h);
+  background: var(--racing);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.promo a {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--chrome);
+  padding: 0 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.promo-close {
+  position: absolute;
+  right: 12px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--chrome);
+  font-size: 16px;
+  line-height: 1;
+  width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2;
+}
+body.promo-hidden .promo { display: none; }
+
+/* ===== 1. HEADER ===== */
+.header {
+  position: fixed;
+  top: var(--promo-h); left: 0; right: 0;
+  height: var(--header-h);
+  background: var(--carbon);
+  border-bottom: 1px solid rgba(225, 6, 0, 0.2);
+  z-index: 900;
+  transition: box-shadow 0.3s var(--ease), top 0.2s var(--ease);
+}
+.header.scrolled { box-shadow: 0 2px 24px rgba(225, 6, 0, 0.1); }
+
+.header-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-style: italic;
+  text-transform: uppercase;
+  font-size: 24px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.logo .rapid { color: var(--chrome); }
+.logo .auto  { color: var(--racing); }
+
+.nav { display: flex; align-items: center; gap: 30px; }
+.nav a {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  transition: color 0.2s var(--ease);
+}
+.nav a:hover, .nav a.active { color: var(--racing); }
+
+.header-cta { display: flex; align-items: center; gap: 12px; }
+.header-cta .btn { padding: 10px 18px; font-size: 14px; border-radius: 2px; }
+.header-cta .btn-primary {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  width: 40px; height: 40px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  color: var(--racing);
+}
+.hamburger span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--racing);
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+
+/* Mobile overlay */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--carbon);
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease);
+}
+.mobile-overlay.open { opacity: 1; pointer-events: auto; }
+.mobile-overlay a {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 30px;
+  letter-spacing: 0.04em;
+  color: var(--chrome);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), color 0.2s var(--ease);
+}
+.mobile-overlay a:hover { color: var(--racing); }
+.mobile-overlay.open a { opacity: 1; transform: translateY(0); }
+.mobile-overlay.open a:nth-child(1) { transition-delay: 0.05s; }
+.mobile-overlay.open a:nth-child(2) { transition-delay: 0.10s; }
+.mobile-overlay.open a:nth-child(3) { transition-delay: 0.15s; }
+.mobile-overlay.open a:nth-child(4) { transition-delay: 0.20s; }
+.mobile-overlay.open a:nth-child(5) { transition-delay: 0.25s; }
+.mobile-close {
+  position: absolute;
+  top: 24px; right: 24px;
+  color: var(--racing);
+  font-size: 34px;
+  line-height: 1;
+  width: 44px; height: 44px;
+}
+
+/* ===== SPEEDLINES ===== */
+.speedlines {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  width: 60%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== 2. HERO ===== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--carbon);
+  padding: calc(var(--promo-h) + var(--header-h) + 70px) 0 90px;
+}
+.hero-inner { position: relative; z-index: 2; max-width: 760px; }
+.hero .eyebrow { font-size: 14px; }
+
+.hero h1 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 0.95;
+  margin: 6px 0 24px;
+  letter-spacing: 0.005em;
+}
+.hero h1 .l1 {
+  display: block;
+  color: var(--chrome);
+  font-size: clamp(40px, 9vw, 84px);
+}
+.hero h1 .l2 {
+  display: block;
+  color: var(--racing);
+  font-size: clamp(48px, 11vw, 100px);
+}
+
+.hero-sub {
+  color: var(--steel);
+  max-width: 480px;
+  font-size: 17px;
+  margin-bottom: 32px;
+}
+
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 40px; }
+
+.hero-badges { display: flex; flex-wrap: wrap; gap: 12px; }
+.badge {
+  background: var(--graphite);
+  color: var(--steel);
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* ===== 3. COMPARATIF VS ===== */
+.vs-wrap {
+  position: relative;
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+.vs-col {
+  border-radius: 4px;
+  padding: 32px 28px;
+}
+.vs-col h3 { margin-bottom: 20px; }
+.vs-mecano {
+  background: var(--carbon);
+  border: 2px solid var(--racing);
+}
+.vs-garage {
+  background: #0f0f12;
+  border: 1px solid rgba(108, 114, 128, 0.2);
+}
+.vs-badge-mecano {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: var(--racing);
+}
+.vs-badge-garage {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--steel);
+}
+.vs-list li {
+  display: flex;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(108, 114, 128, 0.12);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.vs-list li:last-child { border-bottom: none; }
+.vs-mecano .vs-list li { color: var(--chrome); }
+.vs-mecano .vs-list .mark { color: var(--racing); font-weight: 700; flex-shrink: 0; }
+.vs-garage .vs-list li { color: rgba(107, 114, 128, 0.85); }
+.vs-garage .vs-list .mark { color: var(--steel); font-weight: 700; flex-shrink: 0; }
+
+.vs-circle {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--carbon);
+  border: 2px solid var(--racing);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--racing);
+  z-index: 5;
+  box-shadow: 0 0 0 6px var(--graphite);
+}
+
+.vs-mobile-vs {
+  display: none;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--racing);
+  margin: 18px 0;
+}
+
+.vs-cta { text-align: center; margin-top: 40px; }
+
+/* ===== 4. PRESTATIONS ===== */
+.cards-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.prest-card {
+  background: var(--graphite);
+  border-top: 3px solid var(--racing);
+  border-radius: 4px;
+  padding: 30px 26px;
+  transition: transform 0.3s var(--ease), border-top-color 0.3s var(--ease),
+              box-shadow 0.3s var(--ease);
+}
+.prest-card:hover {
+  border-top-color: var(--spark);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+.prest-icon { color: var(--racing); margin-bottom: 18px; }
+.prest-card h3 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--chrome);
+  font-size: 22px;
+  letter-spacing: 0.03em;
+  margin-bottom: 16px;
+}
+.prest-list li {
+  color: var(--steel);
+  font-size: 15px;
+  padding: 6px 0;
+  display: flex;
+  gap: 10px;
+}
+.prest-list li::before { content: '▸'; color: var(--racing); font-weight: 700; }
+
+/* ===== 5. GARANTIE ===== */
+.garantie-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 56px;
+  align-items: center;
+  margin-top: 40px;
+}
+.garantie-text p {
+  color: var(--steel);
+  line-height: 1.8;
+  margin: 18px 0 26px;
+  font-size: 16px;
+}
+.check-list li {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  color: var(--chrome);
+  font-size: 15px;
+}
+.check-list .mark { color: var(--racing); font-weight: 700; flex-shrink: 0; }
+
+.garantie-badge { display: flex; justify-content: center; }
+.guarantee-seal {
+  width: 230px; height: 230px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 40%, #1a0202, var(--carbon));
+  border: 4px solid var(--racing);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 0 0 8px rgba(225, 6, 0, 0.08), 0 18px 40px rgba(0,0,0,0.5);
+}
+.guarantee-seal .check {
+  font-size: 78px;
+  color: var(--chrome);
+  line-height: 1;
+}
+.guarantee-seal .seal-text {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--racing);
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+/* ===== 6. PROCESSUS ===== */
+.steps {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: stretch;
+  gap: 0;
+  margin-top: 48px;
+}
+.step {
+  background: var(--graphite);
+  border-radius: 4px;
+  padding: 30px 26px;
+  position: relative;
+}
+.step-num {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: var(--racing);
+  line-height: 1;
+  margin-bottom: 14px;
+  opacity: 0.5;
+}
+.step h3 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--chrome);
+  font-size: 19px;
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+}
+.step p { color: var(--steel); font-size: 15px; }
+.step-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  color: var(--racing);
+  padding: 0 14px;
+}
+
+/* ===== 7. TÉMOIGNAGES ===== */
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.testimonial {
+  background: var(--carbon);
+  border-left: 3px solid var(--racing);
+  border-radius: 4px;
+  padding: 28px 26px;
+}
+.stars { color: var(--racing); font-size: 16px; letter-spacing: 2px; margin-bottom: 16px; }
+.testimonial p {
+  font-style: italic;
+  color: rgba(200, 205, 210, 0.85);
+  font-size: 15px;
+  line-height: 1.65;
+  margin-bottom: 18px;
+}
+.testimonial .who {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--steel);
+}
+
+/* ===== 8. CONTACT ===== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 32px;
+  margin-top: 44px;
+}
+.contact-channels {
+  background: var(--graphite);
+  border: 1px solid rgba(225, 6, 0, 0.2);
+  border-radius: 4px;
+  padding: 28px;
+}
+.contact-channels .btn { font-size: 18px; margin-bottom: 0; }
+.contact-or {
+  text-align: center;
+  color: var(--steel);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 12px;
+  margin: 16px 0;
+  position: relative;
+}
+.contact-info {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(108, 114, 128, 0.2);
+}
+.contact-info li {
+  color: var(--steel);
+  font-size: 14px;
+  padding: 7px 0;
+  display: flex;
+  gap: 9px;
+}
+
+.contact-form {
+  background: var(--graphite);
+  border: 1px solid rgba(108, 114, 128, 0.15);
+  border-radius: 4px;
+  padding: 28px;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.field { margin-bottom: 16px; }
+.field label {
+  display: block;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 11px;
+  color: var(--steel);
+  margin-bottom: 7px;
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  background: var(--carbon);
+  border: 1px solid rgba(108, 114, 128, 0.3);
+  border-radius: 3px;
+  padding: 11px 14px;
+  color: var(--chrome);
+  font-family: 'Work Sans', sans-serif;
+  font-size: 15px;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.field textarea { resize: vertical; min-height: 96px; }
+.field input::placeholder,
+.field textarea::placeholder { color: var(--steel); }
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--racing);
+  box-shadow: 0 0 0 2px rgba(225, 6, 0, 0.15);
+}
+.field select { appearance: none; cursor: pointer; }
+.contact-form .btn-primary {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+/* ===== 9. FOOTER ===== */
+.footer {
+  background: var(--graphite);
+  border-top: 2px solid var(--racing);
+  padding: 56px 0 32px;
+  text-align: center;
+}
+.footer-logo {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-style: italic;
+  text-transform: uppercase;
+  font-size: 30px;
+  letter-spacing: 0.01em;
+}
+.footer-logo .rapid { color: var(--chrome); }
+.footer-logo .auto  { color: var(--racing); }
+.footer-tag { color: var(--steel); font-size: 14px; margin-top: 8px; }
+.footer-phone {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  color: var(--racing);
+  margin: 18px 0;
+  letter-spacing: 0.04em;
+}
+.footer-ig {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(108, 114, 128, 0.3);
+  color: var(--chrome);
+  margin: 0 auto 20px;
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+.footer-ig:hover { border-color: var(--racing); color: var(--racing); }
+.footer-sep {
+  width: 80px; height: 1px;
+  background: rgba(108, 114, 128, 0.2);
+  margin: 6px auto 20px;
+}
+.footer-copy { color: var(--steel); font-size: 13px; }
+.footer-credit { color: var(--steel); font-size: 11px; margin-top: 8px; opacity: 0.8; }
+
+/* ===== SCROLL REVEAL ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.reveal.revealed { opacity: 1; transform: translateY(0); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .nav { display: none; }
+  .hamburger { display: flex; }
+  .header-cta .btn-ghost-racing { display: none; }
+  .garantie-grid { grid-template-columns: 1fr; gap: 36px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; gap: 16px; }
+  .step-arrow { transform: rotate(90deg); padding: 4px 0; }
+}
+
+@media (max-width: 768px) {
+  .section { padding: 64px 0; }
+  .cards-3 { grid-template-columns: 1fr; }
+  .testimonials {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 82%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;
+  }
+  .testimonial { scroll-snap-align: start; }
+  .vs-wrap { grid-template-columns: 1fr; gap: 0; }
+  .vs-circle { display: none; }
+  .vs-mobile-vs { display: block; }
+  .speedlines { width: 100%; opacity: 0.6; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 18px; }
+  .form-row { grid-template-columns: 1fr; gap: 0; }
+  .header-cta .btn-primary { padding: 9px 12px; font-size: 13px; }
+  .logo { font-size: 20px; }
+  .promo a { font-size: 11px; padding: 0 40px; }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    transition-duration: 0.001ms;
+    animation-duration: 0.001ms;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== 0. BANDEAU PROMO ===== -->
+<div class="promo" id="promo">
+  <a href="tel:0659562283" aria-label="Devis gratuit, appelez le 06 59 56 22 83">
+    ⚡ Devis gratuit en DM ou par téléphone · 06 59 56 22 83
+  </a>
+  <button class="promo-close" id="promoClose" aria-label="Fermer le bandeau promotionnel">✕</button>
+</div>
+
+<!-- ===== 1. HEADER ===== -->
+<header class="header" id="header">
+  <div class="container header-inner">
+    <a href="#hero" class="logo" aria-label="Rapid'Auto — accueil">
+      <span class="rapid">RAPID'</span><span class="auto">AUTO</span>
+    </a>
+
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#prestations">Prestations</a>
+      <a href="#pourquoi">Pourquoi nous</a>
+      <a href="#garantie">Garantie</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="header-cta">
+      <a href="tel:0659562283" class="btn btn-primary" aria-label="Appeler le 06 59 56 22 83">📞 06 59 56 22 83</a>
+      <a href="https://www.instagram.com/lv.rapidauto" target="_blank" rel="noopener" class="btn btn-ghost-racing" aria-label="Demander un devis par message privé Instagram">Devis en DM</a>
+      <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile overlay -->
+<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true">
+  <button class="mobile-close" id="mobileClose" aria-label="Fermer le menu">✕</button>
+  <a href="#prestations">Prestations</a>
+  <a href="#pourquoi">Pourquoi nous</a>
+  <a href="#garantie">Garantie</a>
+  <a href="#contact">Contact</a>
+  <a href="tel:0659562283" style="color:var(--racing)">📞 06 59 56 22 83</a>
+</div>
+
+<!-- ===== 2. HERO ===== -->
+<section class="hero" id="hero">
+  <!-- speedlines -->
+  <svg class="speedlines" viewBox="0 0 600 500" preserveAspectRatio="none" aria-hidden="true">
+    <line x1="-40" y1="60"  x2="560" y2="60"  stroke="var(--racing)" stroke-width="3"   opacity="0.08"/>
+    <line x1="-40" y1="110" x2="470" y2="110" stroke="var(--racing)" stroke-width="2.6" opacity="0.07"/>
+    <line x1="-40" y1="160" x2="540" y2="160" stroke="var(--racing)" stroke-width="2.2" opacity="0.065"/>
+    <line x1="-40" y1="210" x2="420" y2="210" stroke="var(--racing)" stroke-width="1.9" opacity="0.06"/>
+    <line x1="-40" y1="250" x2="500" y2="250" stroke="var(--racing)" stroke-width="1.6" opacity="0.05"/>
+    <line x1="-40" y1="290" x2="380" y2="290" stroke="var(--racing)" stroke-width="1.3" opacity="0.045"/>
+    <line x1="-40" y1="330" x2="480" y2="330" stroke="var(--racing)" stroke-width="1.1" opacity="0.04"/>
+    <line x1="-40" y1="370" x2="360" y2="370" stroke="var(--racing)" stroke-width="0.9" opacity="0.035"/>
+    <line x1="-40" y1="410" x2="440" y2="410" stroke="var(--racing)" stroke-width="0.7" opacity="0.03"/>
+    <line x1="-40" y1="450" x2="330" y2="450" stroke="var(--racing)" stroke-width="0.5" opacity="0.02"/>
+  </svg>
+
+  <div class="container hero-inner">
+    <p class="eyebrow">Mécanicien Entrepreneur · Toutes Marques</p>
+    <h1>
+      <span class="l1">Votre voiture.</span>
+      <span class="l2">Notre priorité.</span>
+    </h1>
+    <p class="hero-sub">
+      Entretien, réparations, diagnostic. Toutes marques.
+      Devis rapide par DM ou téléphone — rapidité et qualité garanties.
+    </p>
+    <div class="hero-ctas">
+      <a href="tel:0659562283" class="btn btn-primary" aria-label="Appeler maintenant le 06 59 56 22 83">📞 Appeler maintenant</a>
+      <a href="https://www.instagram.com/lv.rapidauto" target="_blank" rel="noopener" class="btn btn-ghost-chrome" aria-label="Demander un devis par message privé Instagram">💬 Devis par DM</a>
+    </div>
+    <div class="hero-badges">
+      <span class="badge">⚡ Devis rapide</span>
+      <span class="badge">✓ Garantie constructeur préservée</span>
+      <span class="badge">🔧 Toutes marques</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3. COMPARATIF VS ===== -->
+<section class="section section--graphite" id="pourquoi">
+  <div class="container">
+    <div class="reveal">
+      <p class="eyebrow">La différence</p>
+      <h2 class="section-title">Mécanicien entrepreneur<br>ou grand garage ?</h2>
+      <p class="section-sub">La différence qui fait toute la différence pour votre voiture et votre portefeuille.</p>
+    </div>
+
+    <div class="vs-wrap reveal">
+      <!-- Mécanicien entrepreneur -->
+      <div class="vs-col vs-mecano">
+        <div class="vs-badge-mecano">Rapid'Auto</div>
+        <ul class="vs-list" style="margin-top:18px">
+          <li><span class="mark">✓</span> Tarifs plus accessibles, sans les frais de structure d'un grand garage</li>
+          <li><span class="mark">✓</span> Contact direct avec le mécanicien — pas d'intermédiaire</li>
+          <li><span class="mark">✓</span> Devis rapide par DM ou téléphone, réponse sous quelques heures</li>
+          <li><span class="mark">✓</span> Disponibilité flexible, rendez-vous adaptés à votre emploi du temps</li>
+          <li><span class="mark">✓</span> Relation de confiance durable, suivi personnalisé de votre véhicule</li>
+        </ul>
+      </div>
+
+      <div class="vs-mobile-vs">VS</div>
+
+      <!-- Grand garage -->
+      <div class="vs-col vs-garage">
+        <div class="vs-badge-garage">Grand garage</div>
+        <ul class="vs-list" style="margin-top:18px">
+          <li><span class="mark">−</span> Tarifs souvent plus élevés (structure, marges, intermédiaires)</li>
+          <li><span class="mark">−</span> Interlocuteur différent à chaque visite</li>
+          <li><span class="mark">−</span> Délais de devis et de rendez-vous parfois longs</li>
+          <li><span class="mark">−</span> Horaires fixes, moins de flexibilité</li>
+          <li><span class="mark">−</span> Relation plus distante avec le client</li>
+        </ul>
+      </div>
+
+      <div class="vs-circle" aria-hidden="true">VS</div>
+    </div>
+
+    <div class="vs-cta reveal">
+      <a href="#contact" class="btn btn-primary">Faire le choix Rapid'Auto →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4. PRESTATIONS ===== -->
+<section class="section section--carbon" id="prestations">
+  <div class="container">
+    <div class="reveal">
+      <p class="eyebrow">Nos prestations</p>
+      <h2 class="section-title">Tout pour votre véhicule.</h2>
+      <p class="section-sub">Entretien, réparation, diagnostic — toutes marques.</p>
+    </div>
+
+    <div class="cards-3">
+      <!-- Entretien -->
+      <div class="prest-card reveal">
+        <svg class="prest-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/>
+        </svg>
+        <h3>🔧 Entretien</h3>
+        <ul class="prest-list">
+          <li>Vidange moteur</li>
+          <li>Filtres (huile, air, habitacle, carburant)</li>
+          <li>Révision complète</li>
+          <li>Mise à niveau des liquides</li>
+        </ul>
+      </div>
+
+      <!-- Réparations -->
+      <div class="prest-card reveal">
+        <svg class="prest-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/>
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/>
+        </svg>
+        <h3>⚙️ Réparations</h3>
+        <ul class="prest-list">
+          <li>Freinage (plaquettes, disques)</li>
+          <li>Amortisseurs</li>
+          <li>Embrayage</li>
+          <li>Courroie de distribution</li>
+          <li>Petites réparations mécaniques</li>
+        </ul>
+      </div>
+
+      <!-- Diagnostic -->
+      <div class="prest-card reveal">
+        <svg class="prest-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="7" width="18" height="13" rx="2"/>
+          <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          <path d="M3 13h4l1.5-2.5L11 16l2-9 2 6h6"/>
+        </svg>
+        <h3>🔍 Diagnostic</h3>
+        <ul class="prest-list">
+          <li>Passage valise</li>
+          <li>Recherche de panne</li>
+          <li>Voyant moteur</li>
+          <li>Batterie / alternateur</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 5. GARANTIE ===== -->
+<section class="section section--graphite" id="garantie">
+  <div class="container">
+    <div class="garantie-grid">
+      <div class="garantie-text reveal">
+        <p class="eyebrow">Réassurance</p>
+        <h2 class="section-title">Garantie constructeur<br>préservée.</h2>
+        <p>
+          En venant chez Rapid'Auto, la garantie constructeur de votre véhicule reste
+          garantie. La réglementation européenne autorise l'entretien chez un mécanicien
+          indépendant sans perte de garantie, à condition de respecter le carnet d'entretien.
+        </p>
+        <ul class="check-list">
+          <li><span class="mark">✓</span> Respect du carnet d'entretien et des normes constructeur</li>
+          <li><span class="mark">✓</span> Pièces de qualité équivalente à l'origine</li>
+          <li><span class="mark">✓</span> Factures détaillées conformes</li>
+        </ul>
+      </div>
+
+      <div class="garantie-badge reveal">
+        <div class="guarantee-seal" aria-label="Garantie valable">
+          <span class="check" aria-hidden="true">✓</span>
+          <span class="seal-text">Garantie valable</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6. PROCESSUS ===== -->
+<section class="section section--carbon" id="processus">
+  <div class="container">
+    <div class="reveal">
+      <p class="eyebrow">Comment ça marche</p>
+      <h2 class="section-title">Simple et rapide.</h2>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <h3>Vous contactez</h3>
+        <p>DM Instagram ou appel direct au 06 59 56 22 83. Décrivez le problème ou le besoin d'entretien.</p>
+      </div>
+      <div class="step-arrow" aria-hidden="true">→</div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <h3>Devis rapide</h3>
+        <p>Réponse sous quelques heures avec un devis clair, sans surprise, pièces et main d'œuvre détaillées.</p>
+      </div>
+      <div class="step-arrow" aria-hidden="true">→</div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <h3>Intervention</h3>
+        <p>Rendez-vous fixé selon votre disponibilité. Travail soigné, toutes marques, garantie constructeur respectée.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7. TÉMOIGNAGES ===== -->
+<section class="section section--graphite" id="avis">
+  <div class="container">
+    <div class="reveal">
+      <p class="eyebrow">Avis clients</p>
+      <h2 class="section-title">Ils nous font confiance.</h2>
+    </div>
+
+    <div class="testimonials">
+      <div class="testimonial reveal">
+        <div class="stars" aria-label="5 étoiles sur 5">★★★★★</div>
+        <p>"Devis reçu en DM en moins de 2h, rendez-vous le lendemain. Vidange et plaquettes changées, prix bien plus raisonnable qu'en concession. Je recommande."</p>
+        <div class="who">Karim B. — Vidange + freinage</div>
+      </div>
+      <div class="testimonial reveal">
+        <div class="stars" aria-label="5 étoiles sur 5">★★★★★</div>
+        <p>"Voyant moteur allumé, panique totale. Diagnostic fait rapidement, panne identifiée et réparée dans la journée. Sérieux et efficace."</p>
+        <div class="who">Marion T. — Diagnostic + réparation</div>
+      </div>
+      <div class="testimonial reveal">
+        <div class="stars" aria-label="5 étoiles sur 5">★★★★★</div>
+        <p>"Je pensais perdre ma garantie constructeur en allant ailleurs qu'en concession. Rapid'Auto m'a tout expliqué et la facture est parfaitement conforme. Rassurant."</p>
+        <div class="who">Yannis D. — Entretien complet</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8. CONTACT ===== -->
+<section class="section section--carbon" id="contact">
+  <svg class="speedlines" viewBox="0 0 600 500" preserveAspectRatio="none" aria-hidden="true" style="opacity:0.7">
+    <line x1="-40" y1="80"  x2="540" y2="80"  stroke="var(--racing)" stroke-width="3"   opacity="0.07"/>
+    <line x1="-40" y1="140" x2="450" y2="140" stroke="var(--racing)" stroke-width="2.4" opacity="0.06"/>
+    <line x1="-40" y1="200" x2="510" y2="200" stroke="var(--racing)" stroke-width="1.9" opacity="0.05"/>
+    <line x1="-40" y1="260" x2="400" y2="260" stroke="var(--racing)" stroke-width="1.5" opacity="0.04"/>
+    <line x1="-40" y1="320" x2="470" y2="320" stroke="var(--racing)" stroke-width="1.1" opacity="0.03"/>
+    <line x1="-40" y1="380" x2="350" y2="380" stroke="var(--racing)" stroke-width="0.7" opacity="0.02"/>
+  </svg>
+
+  <div class="container" style="position:relative;z-index:2">
+    <div class="reveal">
+      <p class="eyebrow">Contact & Devis</p>
+      <h2 class="section-title">Parlons de votre voiture.</h2>
+      <p class="section-sub">Devis gratuit · Réponse rapide · Toutes marques</p>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Canaux directs -->
+      <div class="contact-channels reveal">
+        <a href="tel:0659562283" class="btn btn-primary btn-full" aria-label="Appeler le 06 59 56 22 83">📞 06 59 56 22 83</a>
+        <div class="contact-or">ou</div>
+        <a href="https://www.instagram.com/lv.rapidauto" target="_blank" rel="noopener" class="btn btn-ghost-racing btn-full" aria-label="Envoyer un message privé sur Instagram">💬 DM sur Instagram @lv.rapidauto</a>
+        <ul class="contact-info">
+          <li>🔧 Toutes marques</li>
+          <li>⏱ Devis rapide par DM ou téléphone</li>
+          <li>✓ Garantie constructeur préservée</li>
+        </ul>
+      </div>
+
+      <!-- Formulaire -->
+      <form class="contact-form reveal" action="#" method="post">
+        <div class="form-row">
+          <div class="field">
+            <label for="f-prenom">Prénom</label>
+            <input type="text" id="f-prenom" name="prenom" placeholder="Votre prénom" />
+          </div>
+          <div class="field">
+            <label for="f-nom">Nom</label>
+            <input type="text" id="f-nom" name="nom" placeholder="Votre nom" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-tel">Téléphone <span style="color:var(--racing)">*</span></label>
+          <input type="tel" id="f-tel" name="telephone" placeholder="06 00 00 00 00" required />
+        </div>
+        <div class="field">
+          <label for="f-vehicule">Marque et modèle du véhicule</label>
+          <input type="text" id="f-vehicule" name="vehicule" placeholder="Ex : Renault Clio IV" />
+        </div>
+        <div class="field">
+          <label for="f-type">Type d'intervention</label>
+          <select id="f-type" name="intervention">
+            <option value="entretien">Entretien (vidange, filtres, révision)</option>
+            <option value="reparation">Réparation (freinage, embrayage, amortisseurs)</option>
+            <option value="diagnostic">Diagnostic (panne, voyant moteur)</option>
+            <option value="devis">Devis général</option>
+            <option value="autre">Autre</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-message">Description du problème</label>
+          <textarea id="f-message" name="message" placeholder="Décrivez votre besoin ou le problème rencontré…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" aria-label="Envoyer ma demande de devis">Envoyer ma demande</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 9. FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">
+      <span class="rapid">RAPID'</span><span class="auto">AUTO</span>
+    </div>
+    <p class="footer-tag">Mécanicien entrepreneur · Toutes marques</p>
+    <a href="tel:0659562283" class="footer-phone" aria-label="Appeler le 06 59 56 22 83">06 59 56 22 83</a>
+    <div>
+      <a href="https://www.instagram.com/lv.rapidauto" target="_blank" rel="noopener" class="footer-ig" aria-label="Instagram @lv.rapidauto">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/>
+        </svg>
+      </a>
+    </div>
+    <div class="footer-sep"></div>
+    <p class="footer-copy">© 2026 Rapid'Auto — Tous droits réservés</p>
+    <p class="footer-credit">Site réalisé par Payment Flow</p>
+  </div>
+</footer>
+
+<script>
+'use strict';
+
+(function () {
+  /* ===== PROMO CLOSE ===== */
+  function initPromo() {
+    var closeBtn = document.getElementById('promoClose');
+    if (!closeBtn) return;
+    closeBtn.addEventListener('click', function () {
+      document.body.classList.add('promo-hidden');
+    });
+  }
+
+  /* ===== HEADER SCROLL SHADOW ===== */
+  function initHeaderScroll() {
+    var header = document.getElementById('header');
+    if (!header) return;
+    function onScroll() {
+      if (window.scrollY > 60) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ===== MOBILE MENU ===== */
+  function initMobileMenu() {
+    var hamburger = document.getElementById('hamburger');
+    var overlay = document.getElementById('mobileOverlay');
+    var closeBtn = document.getElementById('mobileClose');
+    if (!hamburger || !overlay) return;
+
+    function openMenu() {
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      hamburger.setAttribute('aria-expanded', 'true');
+    }
+    function closeMenu() {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+
+    hamburger.addEventListener('click', openMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    overlay.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', closeMenu);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+  }
+
+  /* ===== SCROLL REVEAL ===== */
+  function initReveal() {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('revealed'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry, i) {
+        if (entry.isIntersecting) {
+          var target = entry.target;
+          var delay = 0;
+          // stagger cards sharing a grid container
+          var siblings = target.parentElement
+            ? Array.prototype.slice.call(target.parentElement.children).filter(function (c) {
+                return c.classList.contains('reveal');
+              })
+            : [];
+          var idx = siblings.indexOf(target);
+          if (idx > 0) delay = idx * 0.08;
+          target.style.transitionDelay = delay + 's';
+          target.classList.add('revealed');
+          observer.unobserve(target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+    els.forEach(function (el) { observer.observe(el); });
+  }
+
+  /* ===== SCROLLSPY ===== */
+  function initScrollspy() {
+    var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+    var map = {};
+    navLinks.forEach(function (link) {
+      var id = link.getAttribute('href').replace('#', '');
+      map[id] = link;
+    });
+    var sections = Object.keys(map)
+      .map(function (id) { return document.getElementById(id); })
+      .filter(Boolean);
+    if (!sections.length || !('IntersectionObserver' in window)) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          navLinks.forEach(function (l) { l.classList.remove('active'); });
+          var active = map[entry.target.id];
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.4, rootMargin: '-20% 0px -50% 0px' });
+
+    sections.forEach(function (s) { observer.observe(s); });
+  }
+
+  /* ===== FORM (no backend) ===== */
+  function initForm() {
+    var form = document.querySelector('.contact-form');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      if (btn) {
+        btn.textContent = '✓ Demande prête — appelez ou écrivez-nous';
+        btn.disabled = true;
+      }
+    });
+  }
+
+  function init() {
+    initPromo();
+    initHeaderScroll();
+    initMobileMenu();
+    initReveal();
+    initScrollspy();
+    initForm();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
